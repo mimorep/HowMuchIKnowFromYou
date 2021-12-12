@@ -216,16 +216,7 @@ var countrys = [
  * @description Method that loads all the info when the page is loaded
  * @author Mmoreno
  */
-async function init () {    
-    
-    // Pide permiso a los usuarios
-    // try {
-    //     clipboard = await navigator.clipboard.readText();
-    // }catch (error) {
-    //     console.error('Error leyendo el clipboard');
-    //     console.error(error);
-    // }
-
+function init () {    
     for (let c of countrys) {
         var key = undefined
         for (let k in c) {
