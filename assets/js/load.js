@@ -9,7 +9,7 @@ var userAgent = undefined,
     clientIP = undefined,
     clientIPInfo = undefined,
     clientLanguage = undefined,
-    clientCountry = undefined,
+    clientCountryL = undefined,
     clientSO = undefined,
     clientCookiesActive = false,
     clientPrevWeb = undefined,
@@ -224,7 +224,7 @@ function init () {
         }
         if (c[key] == navigator.languages[1]) {
             clientLanguage = c[key];
-            clientCountry = key;
+            clientCountryL = key;
         }
     }
 
@@ -235,14 +235,23 @@ function init () {
 
     console.log(clientSO);
     console.log(clientLanguage);
-    console.log(clientCountry);
+    console.log(clientCountryL);
     console.log(clientMobile);
     console.log(clientPrevWeb);
 
-    // Change de country flag
+    // TODO: Corregir el tema de las banderas   
+    // Timeout for rendering
     setTimeout( () => {
-        if (document.getElementById('countryFlag').classList.remove('flag-icon-es'));
+        // Change de country flag
+        if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
+
+        var languageItem = document.getElementById('clienteLanguage'),
+            languageText = languageItem.innerText;
+
+        languageText = languageText.replace('_language_', clientCountryL);
+        languageItem.innerText = languageText;
+        
     }, 1000);    
 }
 
