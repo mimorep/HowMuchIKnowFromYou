@@ -239,6 +239,11 @@ function init () {
     console.log(clientMobile);
     console.log(clientPrevWeb);
 
+    // Change de country flag
+    setTimeout( () => {
+        if (document.getElementById('countryFlag').classList.remove('flag-icon-es'));
+        if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
+    }, 1000);    
 }
 
 /**
@@ -272,6 +277,7 @@ function makeHistoryInyection () {
     // Gen random number
     let random = Math.floor(Math.random() * 7777);
 
+    // TODO: Terminar la inyección de código en el historial
     document.title = 'XDD';
     history.pushState({id: random}, '', `?languaje=es`);
 
