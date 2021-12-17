@@ -354,8 +354,6 @@ function getIPInfo () {
             internetText = internetItem.innerText,
             locationText = locationItem.innerText;
 
-        // https://maps.google.com/?q=<lat>,<lng>
-
         internetText = internetText.replace('_InternetProvider_', result.isp);
         locationText = locationText.replace('_Country_', result.country);
         locationText = locationText.replace('_City_', result.city);
