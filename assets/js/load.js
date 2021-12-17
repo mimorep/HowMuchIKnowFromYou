@@ -349,14 +349,22 @@ function getIPInfo () {
         console.log(result);
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
-            geoLocationItem = document.getElementById('geoLocationInfo'),
+            geoLocationItem = document.getElementById('geoLocation'),
+            geoLocationTitleItem = document.getElementById('geoLocationTitle'),
             internetText = internetItem.innerText,
-            locationText = locationItem.innerText,
-            geoLocationText = geoLocationItem.innerText;
+            locationText = locationItem.innerText;
+
+        // https://maps.google.com/?q=<lat>,<lng>
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
+        locationText = locationText.replace('_Country_', result.country);
+        locationText = locationText.replace('_City_', result.city);
+        locationText = locationText.replace('_ZIP_', result.zip);
 
         internetItem.innerText = internetText;
+        locationItem.innerText = locationText;
+        geoLocationItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
+        geoLocationTitleItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
     });
 }
 
