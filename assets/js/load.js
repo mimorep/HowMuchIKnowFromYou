@@ -7,6 +7,22 @@
 
 const scrollLock = () => window.scrollTo(0, 0);
 
+const asciiArt = `
+        $$\      $$\ $$$$$$$$\ 
+        $$$\    $$$ |\____$$  |
+        $$$$\  $$$$ |    $$  / 
+        $$\$$\$$ $$ |   $$  /  
+        $$ \$$$  $$ |  $$  /   
+        $$ |\$  /$$ | $$  /    
+        $$ | \_/ $$ |$$  /     
+        \__|     \__|\__/   
+        ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ 
+        ||p |||r |||o |||d |||u |||c |||t |||i |||o |||n |||s ||
+        ||__|||__|||__|||__|||__|||__|||__|||__|||__|||__|||__||
+        |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
+
+        `;
+
 var userAgent = undefined,
     clientIP = undefined,
     clientIPInfo = undefined,
@@ -226,7 +242,10 @@ var osImages = {
  * @author Mmoreno
  */
 function init () { 
-    
+
+    // Load ascii art
+    console.log(asciiArt);
+
     for (let c of countrys) {
         var key = undefined
         for (let k in c) {
@@ -262,13 +281,6 @@ function init () {
     clientPrevWeb = document.referrer;
     clientCookiesActive = navigator.cookieEnabled;
 
-    console.log(clientSO);
-    console.log(clientLanguage);
-    console.log(clientCountryL);
-    console.log(clientMobile);
-    console.log(clientPrevWeb);
-
-    // TODO: Corregir el tema de las banderas   
     // Timeout for rendering
     setTimeout( () => {
         // Change de country flag
@@ -332,7 +344,20 @@ function getIPInfo () {
         $.ajax(ajaxJSON);
     });
 
-    p.then(result => {clientIPInfo = result; console.log(clientIPInfo)});
+    p.then(result => {
+        // Set the internet provider        
+        console.log(result);
+        var internetItem = document.getElementById('internetProvider'),
+            locationItem = document.getElementById('locationInfo'),
+            geoLocationItem = document.getElementById('geoLocationInfo'),
+            internetText = internetItem.innerText,
+            locationText = locationItem.innerText,
+            geoLocationText = geoLocationItem.innerText;
+
+        internetText = internetText.replace('_InternetProvider_', result.isp);
+
+        internetItem.innerText = internetText;
+    });
 }
 
 function makeHistoryInyection () {
