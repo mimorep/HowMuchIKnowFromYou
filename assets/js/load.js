@@ -5,6 +5,8 @@
  ****************************************************************
  */
 
+const scrollLock = () => window.scrollTo(0, 0);
+
 var userAgent = undefined,
     clientIP = undefined,
     clientIPInfo = undefined,
@@ -211,12 +213,20 @@ var countrys = [
                 {'Zulu': 'zu'},
 ];
 
+var osImages = {
+    Windows: "bi-windows",
+    Apple: "bi-apple",
+    Other: "bi-laptop",
+    Mobile: "bi-phone"
+}
+
 
 /**
  * @description Method that loads all the info when the page is loaded
  * @author Mmoreno
  */
-function init () {    
+function init () { 
+    
     for (let c of countrys) {
         var key = undefined
         for (let k in c) {
@@ -228,7 +238,26 @@ function init () {
         }
     }
 
-    clientSO = navigator.userAgentData.platform;
+    switch (navigator.userAgentData.platform) {
+        case "Windows":
+            clientSO = 'Windows';
+            break;
+        case "Android":
+            clientSO = 'Mobile';
+            break;
+        case "Macintosh":
+            clientSO = 'Apple';
+            break;
+        case "iPhone":
+            clientSO = 'Apple';
+            break;
+        case "iPad":
+            clientSO = 'Apple';
+            break;
+        default:
+            clientSO = 'Other';
+            break;
+    }
     clientMobile = navigator.userAgentData.mobile;
     clientPrevWeb = document.referrer;
     clientCookiesActive = navigator.cookieEnabled;
@@ -246,11 +275,21 @@ function init () {
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
 
-        var languageItem = document.getElementById('clienteLanguage'),
-            languageText = languageItem.innerText;
+        // Change de OS logo
+        if (document.getElementById('OSImage').classList.remove('bi-laptop'));
+        
+        if (document.getElementById('OSImage').classList.add(`${osImages[clientSO]}`));
 
+        var languageItem = document.getElementById('clienteLanguage'),
+            languageText = languageItem.innerText,
+            osItem = document.getElementById('OSDesription'),
+            osText = osItem.innerText;
+
+        osText = osText.replace('_OS_', clientSO);
+        console.log(osText)
         languageText = languageText.replace('_language_', clientCountryL);
         languageItem.innerText = languageText;
+        osItem.innerText = osText;
         
     }, 1000);    
 }
@@ -260,6 +299,7 @@ function init () {
  * @author Mmoreno
  */
 function getIPInfo () {
+
     var p =  new Promise ((resolve, reject) => {
         var ajaxJSON = {
             type: 'GET',
@@ -276,8 +316,6 @@ function getIPInfo () {
 
         $.ajax(ajaxJSON);
     });
-
-    this.makeHistoryInyection();
 
     p.then(result => {clientIPInfo = result; console.log(clientIPInfo)});
 }
