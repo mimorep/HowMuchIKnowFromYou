@@ -283,13 +283,28 @@ function init () {
         var languageItem = document.getElementById('clienteLanguage'),
             languageText = languageItem.innerText,
             osItem = document.getElementById('OSDesription'),
-            osText = osItem.innerText;
+            osText = osItem.innerText,
+            prevWeb = document.getElementById('prevWeb'),
+            prevWebText = prevWeb.innerText;
 
         osText = osText.replace('_OS_', clientSO);
-        console.log(osText)
         languageText = languageText.replace('_language_', clientCountryL);
+        prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
+        if (clientPrevWeb.includes('linkedin')) {
+            var linkedLink = document.createElement("a");
+            
+            linkedLink.href = "https://www.linkedin.com/in/miguel-moreno-pastor";
+            linkedLink.target = '_blank';
+            linkedLink.innerHTML = "Miguel Moreno Pastor";
+
+            // Add the link to the end
+            prevWebText = prevWebText + ', by the way you should follow ';
+        }        
         languageItem.innerText = languageText;
         osItem.innerText = osText;
+        prevWeb.innerText = prevWebText;
+        if (linkedLink)
+            prevWeb.appendChild(linkedLink);
         
     }, 1000);    
 }
