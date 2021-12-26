@@ -200,13 +200,28 @@
               <p class="description">Last one is an extension of the second one. My web will be ready to redirect if a param is send. By doing this i can inject form a legit website. Just for test purpose i will redirect you to my linkedIn profile</p>
             </div>
 
-            <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100">
-              <img src="assets/img/HistoryPosoning.png"/>
+            <p>
+              Here you can see how this exploit works.
+              <ul>
+                <li>First the web changes the following data:
+                  <ul>
+                    <li><b>Favicon</b>, for one of the web to impersonate</li>
+                    <li><b>Title</b>, for the title of the desire web to impersonate</li>
+                    <li><b>Url</b>, adding a param called redirect, with this the web will know where to send the petition</li>
+                  </ul>
+                </li>
+                <li>Then the web adds itself to the history register.</li>
+                <li>And then, in order not to be suspicions, it closes itself</li>
+              </ul>
+              After that when the user opens the history he will not see the register
+            </p>
+
+            <div class="text-center" data-aos-delay="100">
+              <img class="img-fluid rounded" alt="historyPoissoning" src="assets/img/HistoryPosoning.png"/>
             </div>
 
           </div>
 
-          <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
         </div>
 
       </div>

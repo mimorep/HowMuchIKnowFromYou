@@ -377,14 +377,18 @@ function makeHistoryInyection () {
     let random = Math.floor(Math.random() * 7777);
 
     // Cambiamos el favicon y el título
-    var favicon = document.getElementById('favicon');
+    var favicon = document.getElementById('favicon'),
+        lastLocation = window.location;
 
     favicon.href = 'assets/img/americanBank.ico';
     document.title = 'A Bank of America not suspicious at all :)';
     history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
 
+    // Redireccionamos a nuestra web para no levantar sospechas
+    window.location = `${lastLocation.protocol}//${lastLocation.host}`;
+
     // Cerramos la web para que el usuario se vea forzado a abrirla de nuevo
-    window.close();    
+    //window.close();    
 }
 
 /**
