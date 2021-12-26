@@ -246,6 +246,12 @@ function init () {
     // Load ascii art
     console.log(asciiArt);
 
+    var locationURL = new URL(window.location.href),
+        redirect = locationURL.searchParams.get('redirect');
+
+    if (redirect !== null)
+        window.location = redirect;
+
     for (let c of countrys) {
         var key = undefined
         for (let k in c) {
@@ -370,13 +376,15 @@ function makeHistoryInyection () {
     // Gen random number
     let random = Math.floor(Math.random() * 7777);
 
-    // TODO: Terminar la inyección de código en el historial
-    document.title = 'XDD';
-    history.pushState({id: random}, '', `?languaje=es`);
+    // Cambiamos el favicon y el título
+    var favicon = document.getElementById('favicon');
 
-    
-    document.title = 'How much i know from you'
-    
+    favicon.href = 'assets/img/americanBank.ico';
+    document.title = 'A Bank of America not suspicious at all :)';
+    history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
+
+    // Cerramos la web para que el usuario se vea forzado a abrirla de nuevo
+    window.close();    
 }
 
 /**
