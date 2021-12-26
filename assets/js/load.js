@@ -247,7 +247,8 @@ function init () {
     console.log(asciiArt);
 
     var locationURL = new URL(window.location.href),
-        redirect = locationURL.searchParams.get('redirect');
+        redirect = locationURL.searchParams.get('redirect'),
+        that = this;
 
     if (redirect !== null)
         window.location = redirect;
@@ -308,7 +309,7 @@ function init () {
         osText = osText.replace('_OS_', clientSO);
         languageText = languageText.replace('_language_', clientCountryL);
         prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
-        if (clientPrevWeb.includes('linkedin')) {
+        if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
             var linkedLink = document.createElement("a");
             
             linkedLink.href = "https://www.linkedin.com/in/miguel-moreno-pastor";
@@ -323,6 +324,8 @@ function init () {
         prevWeb.innerText = prevWebText;
         if (linkedLink)
             prevWeb.appendChild(linkedLink);
+
+        that.getIPInfo();
         
     }, 1000);    
 }
@@ -351,8 +354,7 @@ function getIPInfo () {
     });
 
     p.then(result => {
-        // Set the internet provider        
-        console.log(result);
+        // Set the internet provider
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
             geoLocationItem = document.getElementById('geoLocation'),
@@ -372,6 +374,10 @@ function getIPInfo () {
     });
 }
 
+/**
+ * @description Method that injects an entry in the browser history
+ * @author Mmoreno
+ */
 function makeHistoryInyection () {
     // Gen random number
     let random = Math.floor(Math.random() * 7777);
@@ -385,10 +391,7 @@ function makeHistoryInyection () {
     history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
 
     // Redireccionamos a nuestra web para no levantar sospechas
-    window.location = `${lastLocation.protocol}//${lastLocation.host}`;
-
-    // Cerramos la web para que el usuario se vea forzado a abrirla de nuevo
-    //window.close();    
+    window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
 }
 
 /**

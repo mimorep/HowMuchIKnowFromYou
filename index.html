@@ -178,7 +178,7 @@
 
               This exploit was my own idea, webs are allow to save themselves as a history entry, but what if they could impersonate others?.
 
-              I'm going to propose 2 examples of what could be done with this. You will have to click to activate them (I could do it without you clicking, but I don't want to poison your history without your consent).
+              I'm going to propose 2 ideas of what could be done with this. You can click in the second one to see the demo (I could do it without you clicking, but I don't want to poison your history without your consent).
             </p>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -188,16 +188,10 @@
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bi bi-bug"></i></div>
+              <div class="icon"><a href="javascript:makeHistoryInyection();"><i class="bi bi-bug"></i></a></div>
               <h4 class="title">Web spoofing</h4>
               <p class="description">The last entrance of your history will seems to be the famous Bank of America, but instead it will be my website 
                 (Imagine for a second what it would mean to enter a website that "looks like your trusted bank" but is not. Does this sound familiar to you? <a href="https://en.wikipedia.org/wiki/Spoofing_attack">spoofing atack</a>).</p>
-            </div>
-
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><i class="bi bi-bug"></i></div>
-              <h4 class="title">Malicious redirections</h4>
-              <p class="description">Last one is an extension of the second one. My web will be ready to redirect if a param is send. By doing this i can inject form a legit website. Just for test purpose i will redirect you to my linkedIn profile</p>
             </div>
 
             <p>
@@ -211,14 +205,48 @@
                   </ul>
                 </li>
                 <li>Then the web adds itself to the history register.</li>
-                <li>And then, in order not to be suspicions, it closes itself</li>
+                <li>And then, in order not to be suspicions, it redirects to itself.</li>
               </ul>
-              After that when the user opens the history he will not see the register
+              After that when the user opens the history he will see our web, and also his usual bank page (but is not). If he decides to access his banking website from the history (a totally normal operation), in reality he will be going to our website, where we have control over where to send it, like to a website where to steal his banking credentials, but in this case don't worry, I'll send you to the best Linkedin profile.
             </p>
 
             <div class="text-center" data-aos-delay="100">
               <img class="img-fluid rounded" alt="historyPoissoning" src="assets/img/HistoryPosoning.png"/>
             </div>
+
+            <!-- Custom history posoning atack -->
+            <!-- Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poisonModal" data-whatever="@mdo">Open modal for @mdo</button>
+
+            <div class="modal fade" id="poisonModal" tabindex="-1" role="dialog" aria-labelledby="poisonModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="poisonModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Custom history posoning atack -->
 
           </div>
 
