@@ -1,8 +1,9 @@
 /**
-* Template Name: Regna - v4.7.0
-* Template URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
+*********************************************
+*         Modified css of a template        *
+*           by Miguel Moreno Pastor         *
+*********************************************
+
 */
 
 /*--------------------------------------------------------------
@@ -15,7 +16,7 @@ body {
 }
 
 a {
-  color: #2dc997;
+  color: #04B6FC;
   text-decoration: none;
 }
 
@@ -47,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #2dc997;
+  background: #04B6FC;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -162,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 2px;
   bottom: -6px;
   left: 0;
-  background-color: #2dc997;
+  background-color: #04B6FC;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out 0s;
@@ -201,7 +202,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 12px;
 }
 .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
-  color: #2dc997;
+  color: #04B6FC;
 }
 .navbar .dropdown:hover > ul {
   opacity: 1;
@@ -289,7 +290,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #666666;
 }
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
-  color: #2dc997;
+  color: #04B6FC;
 }
 .navbar-mobile .getstarted, .navbar-mobile .getstarted:focus {
   margin: 15px;
@@ -315,7 +316,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 12px;
 }
 .navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
-  color: #2dc997;
+  color: #04B6FC;
 }
 .navbar-mobile .dropdown > .dropdown-active {
   display: block;
@@ -327,7 +328,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url(../img/hero-bg.jpg) top center;
+  background: url(../img/DataBackground.gif) top center;
   background-size: cover;
   position: relative;
 }
@@ -398,8 +399,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 #hero .btn-get-started:hover {
-  background: #2dc997;
-  border: 2px solid #2dc997;
+  background: #04B6FC;
+  border: 2px solid #04B6FC;
 }
 
 /*--------------------------------------------------------------
@@ -481,7 +482,7 @@ section {
 }
 #about .about-container .background {
   min-height: 300px;
-  background: url(../img/about-img.jpg) center top no-repeat;
+  /* background: url(../img/about-img.jpg) center top no-repeat; */
   margin-bottom: 10px;
 }
 #about .about-container .content {
@@ -519,10 +520,10 @@ section {
   flex-direction: column;
   text-align: center;
   border-radius: 50%;
-  border: 2px solid #2dc997;
+  border: 2px solid #04B6FC;
 }
 #about .about-container .icon-box .icon i {
-  color: #2dc997;
+  color: #04B6FC;
   font-size: 24px;
   line-height: 0;
 }
@@ -551,7 +552,7 @@ section {
 #facts .counters span {
   font-size: 48px;
   display: block;
-  color: #2dc997;
+  color: #04B6FC;
 }
 #facts .counters p {
   padding: 0;
@@ -590,7 +591,7 @@ section {
   text-align: center;
   width: 72px;
   height: 72px;
-  background: #2dc997;
+  background: #04B6FC;
 }
 #services .icon a {
   display: inline-block;
@@ -602,13 +603,13 @@ section {
 }
 #services .box:hover .icon {
   background: #fff;
-  border: 2px solid #2dc997;
+  border: 2px solid #04B6FC;
 }
 #services .box:hover .icon i {
-  color: #2dc997;
+  color: #04B6FC;
 }
 #services .box:hover .icon a {
-  color: #2dc997;
+  color: #04B6FC;
 }
 #services .title {
   font-weight: 700;
@@ -666,8 +667,8 @@ section {
   color: #fff;
 }
 #call-to-action .cta-btn:hover {
-  background: #2dc997;
-  border: 2px solid #2dc997;
+  background: #04B6FC;
+  border: 2px solid #04B6FC;
 }
 
 /* Portfolio Section
@@ -698,7 +699,7 @@ section {
 }
 #portfolio #portfolio-flters li:hover, #portfolio #portfolio-flters li.filter-active {
   color: #fff;
-  background: #2dc997;
+  background: #04B6FC;
 }
 #portfolio #portfolio-flters li:last-child {
   margin-right: 0;
@@ -720,7 +721,7 @@ section {
   bottom: -50px;
   z-index: 3;
   transition: all ease-in-out 0.3s;
-  background: #2dc997;
+  background: #04B6FC;
   padding: 15px 20px;
 }
 #portfolio .portfolio-item .portfolio-info h4 {
@@ -773,10 +774,10 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #2dc997;
+  border: 1px solid #04B6FC;
 }
 .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #2dc997;
+  background-color: #04B6FC;
 }
 .portfolio-details .portfolio-info {
   padding: 30px;
@@ -844,7 +845,7 @@ section {
   color: #b3b3b3;
 }
 #team .member .social a:hover {
-  color: #2dc997;
+  color: #04B6FC;
 }
 #team .member .social i {
   font-size: 18px;
@@ -866,7 +867,7 @@ section {
 }
 #contact .info i {
   font-size: 32px;
-  color: #2dc997;
+  color: #04B6FC;
   float: left;
   line-height: 0;
 }
@@ -900,7 +901,7 @@ section {
   line-height: 0;
 }
 #contact .social-links a:hover {
-  background: #2dc997;
+  background: #04B6FC;
   color: #fff;
 }
 #contact .php-email-form .error-message {
@@ -946,10 +947,10 @@ section {
   font-size: 14px;
 }
 #contact .php-email-form input::focus, #contact .php-email-form textarea::focus {
-  background-color: #2dc997;
+  background-color: #04B6FC;
 }
 #contact .php-email-form button[type=submit] {
-  background: #2dc997;
+  background: #04B6FC;
   border: 0;
   padding: 10px 24px;
   color: #fff;
