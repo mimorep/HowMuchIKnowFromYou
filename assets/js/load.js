@@ -33,7 +33,8 @@ var userAgent = undefined,
     clientPrevWeb = undefined,
     clientMobile = false,
     appVersion = undefined,
-    clipboard = undefined;
+    clipboard = undefined,
+    apiKey = '926c3b5a5a204d1c9b44dedff53e9003'; 
 
 var countrys = [
                 {'Abkhazian': 'ab'},
@@ -339,8 +340,8 @@ function getIPInfo () {
     var p =  new Promise ((resolve, reject) => {
         var ajaxJSON = {
             type: 'GET',
-            async: false,
-            url: `http://ip-api.com/json/${clientIP}`,
+            async: true, 
+            url: `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${clientIP}`,
             dataType: 'json',
             success: data => {
                 resolve(data);
@@ -348,12 +349,14 @@ function getIPInfo () {
             error: error => {
                 reject(error);
             }
-        };
+        }
 
         $.ajax(ajaxJSON);
     });
 
     p.then(result => {
+        console.log(result);
+
         // Set the internet provider
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
@@ -363,14 +366,14 @@ function getIPInfo () {
             locationText = locationItem.innerText;
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
-        locationText = locationText.replace('_Country_', result.country);
+        locationText = locationText.replace('_Country_', result.state_prov);
         locationText = locationText.replace('_City_', result.city);
-        locationText = locationText.replace('_ZIP_', result.zip);
+        locationText = locationText.replace('_ZIP_', result.zipcode);
 
         internetItem.innerText = internetText;
         locationItem.innerText = locationText;
-        geoLocationItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
-        geoLocationTitleItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
+        geoLocationItem.href = `https://maps.google.com/?q=${result.latitude},${result.longitude}`;
+        geoLocationTitleItem.href = `https://maps.google.com/?q=${result.latitude},${result.longitude}`;
     });
 }
 
