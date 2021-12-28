@@ -291,6 +291,7 @@ function init () {
 
     // Timeout for rendering
     setTimeout( () => {
+
         // Change de country flag
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
@@ -355,8 +356,6 @@ function getIPInfo () {
     });
 
     p.then(result => {
-        console.log(result);
-
         // Set the internet provider
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
@@ -416,6 +415,25 @@ function makeHistoryInyection () {
         history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
         window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
     }, 100);
+}
+
+function makeCustomAttack (event) {
+    event.preventDefault();
+    alert();
+//     let random = Math.floor(Math.random() * 7777);
+
+//     // Cambiamos el favicon y el título
+//     var favicon = document.getElementById('favicon'),
+//         lastLocation = window.location;
+
+//     favicon.href = 'assets/img/americanBank.ico';
+//     document.title = 'Prueba';
+
+//     // Redireccionamos a nuestra web para no levantar sospechas
+//     setTimeout(() => {
+//         history.pushState({id: random}, '', `?redirect=https://www.google.com`);
+//         window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
+//     }, 100);
 }
 
 /**

@@ -224,6 +224,27 @@
             </p>
 
             <!-- TODO: Custom history posoning atack -->
+            <p>
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Generate your own attack!
+              </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                
+                  <div class="form-group">
+                    <input type="link" class="form-control" id="websiteAttackName" aria-describedby="emailHelp" placeholder="Name to show on the record">
+                  </div>
+                  <div class="form-group">
+                    <input type="link" class="form-control" id="websiteAttackLink" aria-describedby="emailHelp" placeholder="Link to the &quot;phishing&quot; site">
+                  </div>
+                  <div class="form-group">
+                    <input type="link" class="form-control" id="websiteAttackIcon" aria-describedby="emailHelp" placeholder="Icon of the &quot;phishing&quot; site">
+                  </div>
+                  <button id="customAttackButton" onclick="makeCustomAttack(event);" class="btn btn-primary">Create!</button>
+                
+              </div>
+            </div>
             
             <!-- End Custom history posoning atack -->
 
