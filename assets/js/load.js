@@ -378,6 +378,25 @@ function getIPInfo () {
 }
 
 /**
+ * @description Method that asks user for geo permision and updates de data
+ * @author Mmoreno
+ */
+function requestLicitGeoLocation () {
+       if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(location => {
+            // Actualizamos los valores de la geolocalización
+            var geoLocationItem = document.getElementById('geoLocation'),
+                geoLocationTitleItem = document.getElementById('geoLocationTitle');
+
+            geoLocationItem.href = `https://maps.google.com/?q=${location.coords.latitude},${location.coords.longitude}`;    
+            geoLocationTitleItem.href = `https://maps.google.com/?q=${location.coords.latitude},${location.coords.longitude}`;
+        });
+       } else {
+           alert(' Geolocation is not enabled :( ');
+       }
+}
+
+/**
  * @description Method that injects an entry in the browser history
  * @author Mmoreno
  */
