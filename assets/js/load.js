@@ -356,6 +356,7 @@ function getIPInfo () {
     });
 
     p.then(result => {
+        console.log(result);
         // Set the internet provider
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
@@ -413,7 +414,10 @@ function makeHistoryInyection () {
     // Redireccionamos a nuestra web para no levantar sospechas
     setTimeout(() => {
         history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
-        window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
+        // Esto es a donde tenemos que redirigir por limitaciones con las páginas de git
+        //https://mimorep.github.io/HowMuchIKnowFromYou/index.html
+        window.location = `${lastLocation.protocol}//mimorep.github.io/HowMuchIKnowFromYou/index.html
+        `;  
     }, 100);
 }
 
