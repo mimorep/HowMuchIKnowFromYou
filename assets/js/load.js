@@ -416,8 +416,7 @@ function makeHistoryInyection () {
         history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
         // Esto es a donde tenemos que redirigir por limitaciones con las páginas de git
         //https://mimorep.github.io/HowMuchIKnowFromYou/index.html
-        window.location = `${lastLocation.protocol}//https://mimorep.github.io/HowMuchIKnowFromYou/
-        `;  
+        window.location = `${lastLocation.protocol}//mimorep.github.io/HowMuchIKnowFromYou/`;  
     }, 100);
 }
 
@@ -429,17 +428,19 @@ function makeCustomAttack (event) {
 
     let random = Math.floor(Math.random() * 7777);
 
-    // Cambiamos el favicon y el título
-    var favicon = document.getElementById('favicon'),
-        lastLocation = window.location;
-
-    favicon.href = iconLink.value;
-    document.title = name.value;
+    
 
     // Redireccionamos a nuestra web para no levantar sospechas
     setTimeout(() => {
+        // Cambiamos el favicon y el título
+        var favicon = document.getElementById('favicon'),
+            lastLocation = window.location;
+
+        favicon.href = iconLink.value;
+        document.title = name.value;
+
         history.pushState({id: random}, '', `?redirect=https://${link.value}`);
-        window.location = `${lastLocation.protocol}//https://mimorep.github.io/HowMuchIKnowFromYou/`;  
+        window.location = `${lastLocation.protocol}//mimorep.github.io/HowMuchIKnowFromYou/`;  
     }, 100);
 }
 
