@@ -369,7 +369,7 @@ function getIPInfo () {
 
         // Set the flag icon
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
-        if (clientLanguage === undefined || clientCountryL === undefined) {
+        if (true) {
             var countryFlag = document.getElementById('countryFlag'),
                 language = document.getElementById('clienteLanguage'); //innerText
 
@@ -388,7 +388,7 @@ function getIPInfo () {
             }
 
             // Now set the language
-            language.innerText = language.innerText.replace('undefined', clientCountryL);
+            language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);
 
         }
 
