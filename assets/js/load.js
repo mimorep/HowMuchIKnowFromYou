@@ -294,7 +294,7 @@ function init () {
 
         // Change de country flag
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
-        if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
+        //if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
 
         // Change de OS logo
         if (document.getElementById('OSImage').classList.remove('bi-laptop'));
@@ -369,35 +369,35 @@ function getIPInfo () {
 
         // Set the flag icon
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
-        if (clientLanguage === undefined || clientCountryL === undefined) {
-            var countryFlag = document.getElementById('countryFlag'),
-                imgDiv = document.getElementById('imgDiv'),
-                img = document.createElement('img'),
-                language = document.getElementById('clienteLanguage');
+       
+        var countryFlag = document.getElementById('countryFlag'),
+            imgDiv = document.getElementById('imgDiv'),
+            img = document.createElement('img'),
+            language = document.getElementById('clienteLanguage');
 
-            countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
-            
-            // Replace the flag with the icon of the result             
-            img.src = result.country_flag;
-            img.style = 'width: 55%; padding-bottom: 1em;';
+        countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
+        
+        // Replace the flag with the icon of the result             
+        img.src = result.country_flag;
+        img.style = 'width: 55%; padding-bottom: 1em;';
 
-            imgDiv.appendChild(img);
+        imgDiv.appendChild(img);
 
-            for (let c of countrys) {
-                var key = undefined
-                for (let k in c) {
-                    key = k;
-                }
-                if (c[key] == result.country_code2.toLowerCase()) {
-                    clientLanguage = c[key];
-                    clientCountryL = key;            
-                }
+        for (let c of countrys) {
+            var key = undefined
+            for (let k in c) {
+                key = k;
             }
-
-            // Now set the language
-            language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);
-
+            if (c[key] == result.country_code2.toLowerCase()) {
+                clientLanguage = c[key];
+                clientCountryL = key;            
+            }
         }
+
+        // Now set the language
+        language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);
+
+        
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
         locationText = locationText.replace('_Country_', result.state_prov);
