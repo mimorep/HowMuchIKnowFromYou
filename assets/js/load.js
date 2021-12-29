@@ -33,7 +33,8 @@ var userAgent = undefined,
     clientPrevWeb = undefined,
     clientMobile = false,
     appVersion = undefined,
-    clipboard = undefined;
+    clipboard = undefined,
+    apiKey = '926c3b5a5a204d1c9b44dedff53e9003'; 
 
 var countrys = [
                 {'Abkhazian': 'ab'},
@@ -290,6 +291,7 @@ function init () {
 
     // Timeout for rendering
     setTimeout( () => {
+
         // Change de country flag
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
@@ -339,8 +341,8 @@ function getIPInfo () {
     var p =  new Promise ((resolve, reject) => {
         var ajaxJSON = {
             type: 'GET',
-            async: false,
-            url: `http://ip-api.com/json/${clientIP}`,
+            async: true, 
+            url: `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${clientIP}`,
             dataType: 'json',
             success: data => {
                 resolve(data);
@@ -348,7 +350,7 @@ function getIPInfo () {
             error: error => {
                 reject(error);
             }
-        };
+        }
 
         $.ajax(ajaxJSON);
     });
@@ -363,15 +365,34 @@ function getIPInfo () {
             locationText = locationItem.innerText;
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
-        locationText = locationText.replace('_Country_', result.country);
+        locationText = locationText.replace('_Country_', result.state_prov);
         locationText = locationText.replace('_City_', result.city);
-        locationText = locationText.replace('_ZIP_', result.zip);
+        locationText = locationText.replace('_ZIP_', result.zipcode);
 
         internetItem.innerText = internetText;
         locationItem.innerText = locationText;
-        geoLocationItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
-        geoLocationTitleItem.href = `https://maps.google.com/?q=${result.lat},${result.lon}`;
+        geoLocationItem.href = `https://maps.google.com/?q=${result.latitude},${result.longitude}`;
+        geoLocationTitleItem.href = `https://maps.google.com/?q=${result.latitude},${result.longitude}`;
     });
+}
+
+/**
+ * @description Method that asks user for geo permision and updates de data
+ * @author Mmoreno
+ */
+function requestLicitGeoLocation () {
+       if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(location => {
+            // Actualizamos los valores de la geolocalización
+            var geoLocationItem = document.getElementById('geoLocation'),
+                geoLocationTitleItem = document.getElementById('geoLocationTitle');
+
+            geoLocationItem.href = `https://maps.google.com/?q=${location.coords.latitude},${location.coords.longitude}`;    
+            geoLocationTitleItem.href = `https://maps.google.com/?q=${location.coords.latitude},${location.coords.longitude}`;
+        });
+       } else {
+           alert(' Geolocation is not enabled :( ');
+       }
 }
 
 /**
@@ -392,6 +413,28 @@ function makeHistoryInyection () {
     // Redireccionamos a nuestra web para no levantar sospechas
     setTimeout(() => {
         history.pushState({id: random}, '', `?redirect=https://www.linkedin.com/in/miguel-moreno-pastor`);
+        window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
+    }, 100);
+}
+
+function makeCustomAttack (event) {
+    event.preventDefault();
+    var name = document.getElementById('websiteAttackName'),
+        link = document.getElementById('websiteAttackLink'),
+        iconLink = document.getElementById('websiteAttackIcon');
+
+    let random = Math.floor(Math.random() * 7777);
+
+    // Cambiamos el favicon y el título
+    var favicon = document.getElementById('favicon'),
+        lastLocation = window.location;
+
+    favicon.href = iconLink.value;
+    document.title = name.value;
+
+    // Redireccionamos a nuestra web para no levantar sospechas
+    setTimeout(() => {
+        history.pushState({id: random}, '', `?redirect=https://${link.value}`);
         window.location = `${lastLocation.protocol}//${lastLocation.host}`;  
     }, 100);
 }
