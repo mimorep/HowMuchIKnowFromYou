@@ -369,12 +369,19 @@ function getIPInfo () {
 
         // Set the flag icon
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
-        if (true) {
+        if (clientLanguage === undefined || clientCountryL === undefined) {
             var countryFlag = document.getElementById('countryFlag'),
-                language = document.getElementById('clienteLanguage'); //innerText
+                imgDiv = document.getElementById('imgDiv'),
+                img = document.createElement('img'),
+                language = document.getElementById('clienteLanguage');
 
             countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
-            countryFlag.classList.add(`flag-icon-${result.country_code2.toLowerCase()}`);
+            
+            // Replace the flag with the icon of the result             
+            img.src = result.country_flag;
+            img.style = 'width: 55%; padding-bottom: 1em;';
+
+            imgDiv.appendChild(img);
 
             for (let c of countrys) {
                 var key = undefined
