@@ -359,7 +359,6 @@ function getIPInfo () {
     });
 
     p.then(result => {
-        console.log(result);
         // Set the internet provider
         var internetItem = document.getElementById('internetProvider'),
             locationItem = document.getElementById('locationInfo'),
