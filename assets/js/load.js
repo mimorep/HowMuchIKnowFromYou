@@ -261,7 +261,7 @@ function init () {
         }
         if (c[key] == navigator.languages[1]) {
             clientLanguage = c[key];
-            clientCountryL = key;
+            clientCountryL = key;            
         }
     }
 
@@ -309,7 +309,10 @@ function init () {
             prevWebText = prevWeb.innerText;
 
         osText = osText.replace('_OS_', clientSO);
-        languageText = languageText.replace('_language_', clientCountryL);
+        if (clientCountryL !== undefined)
+            languageText = languageText.replace('_language_', clientCountryL);
+        else
+            languageText = languageText.replace('_language_', 'a language that is not in my database');
         prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
         if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
             var linkedLink = document.createElement("a");
@@ -364,6 +367,31 @@ function getIPInfo () {
             geoLocationTitleItem = document.getElementById('geoLocationTitle'),
             internetText = internetItem.innerText,
             locationText = locationItem.innerText;
+
+        // Set the flag icon
+        if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
+        if (clientLanguage === undefined || clientCountryL === undefined) {
+            var countryFlag = document.getElementById('countryFlag'),
+                language = document.getElementById('clienteLanguage'); //innerText
+
+            countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
+            countryFlag.classList.add(`flag-icon-${result.country_code2.toLowerCase()}`);
+
+            for (let c of countrys) {
+                var key = undefined
+                for (let k in c) {
+                    key = k;
+                }
+                if (c[key] == result.country_code2.toLowerCase()) {
+                    clientLanguage = c[key];
+                    clientCountryL = key;            
+                }
+            }
+
+            // Now set the language
+            language.innerText = language.innerText.replace('undefined', clientCountryL);
+
+        }
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
         locationText = locationText.replace('_Country_', result.state_prov);
