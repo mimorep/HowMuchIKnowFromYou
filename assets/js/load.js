@@ -230,6 +230,30 @@ var countrys = [
                 {'Zulu': 'zu'},
 ];
 
+var osDictionary = [
+    {'Windows 3.11' : 'Win16'},
+    {'Windows 95' : '(Windows 95)|(Win95)|(Windows_95)'},
+    {'Windows 98' : '(Windows 98)|(Win98)'},
+    {'Windows 2000' : '(Windows NT 5.0)|(Windows 2000)'},
+    {'Windows XP' : '(Windows NT 5.1)|(Windows XP)'},
+    {'Windows Server 2003' : '(Windows NT 5.2)'},
+    {'Windows Vista' : '(Windows NT 6.0)'},
+    {'Windows 7' : '(Windows NT 6.1)'},
+    {'Windows 8' : '(Windows NT 6.2)|(WOW64)'},
+    {'Windows 10' : '(Windows 10.0)|(Windows NT 10.0)'},
+    {'Windows NT 4.0' : '(Windows NT 4.0)|(WinNT4.0)|(WinNT)|(Windows NT)'},
+    {'Windows ME' : 'Windows ME'},
+    {'Open BSD' : 'OpenBSD'},
+    {'Sun OS' : 'SunOS'},
+    {'Linux' : '(Linux)|(X11)'},
+    {'Mac OS' : '(Mac_PowerPC)|(Macintosh)'},
+    {'QNX' : 'QNX'},
+    {'BeOS' : 'BeOS'},
+    {'OS/2' : 'OS/2'},
+    {'Search Bot':'(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp)|(MSNBot)|(Ask Jeeves/Teoma)|(ia_archiver)'}
+
+];
+
 var osImages = {
     Windows: "bi-windows",
     Apple: "bi-apple",
@@ -246,6 +270,8 @@ function init () {
 
     // Load ascii art
     console.log(asciiArt);
+
+    // TODO: Tenemos que controlar si estamos en MAC o en Windows por que en MAC no existe userAgentData
 
     var locationURL = new URL(window.location.href),
         redirect = locationURL.searchParams.get('redirect'),
@@ -314,7 +340,11 @@ function init () {
         else
             languageText = languageText.replace('_language_', 'a language that is not in my database');
         prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
-        if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
+        // https://mimorep.github.io/HowMuchIKnowFromYou/?redirect=https://www.linkedin.com/in/miguel-moreno-pastor
+        if (clientPrevWeb.includes('?redirect=')) {
+            // The client had used our web to make an atack
+            prevWebText = 'You come from my website and have tried the history poisoning attack';
+        }else if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
             var linkedLink = document.createElement("a");
             
             linkedLink.href = "https://www.linkedin.com/in/miguel-moreno-pastor";
@@ -460,9 +490,7 @@ function makeCustomAttack (event) {
         link = document.getElementById('websiteAttackLink'),
         iconLink = document.getElementById('websiteAttackIcon');
 
-    let random = Math.floor(Math.random() * 7777);
-
-    
+    let random = Math.floor(Math.random() * 7777);    
 
     // Redireccionamos a nuestra web para no levantar sospechas
     setTimeout(() => {
