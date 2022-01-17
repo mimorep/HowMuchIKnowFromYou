@@ -274,11 +274,13 @@ function init () {
         for (let k in c) {
             key = k;
         }
-        if (c[key] == navigator.languages[1]) {
+        if (navigator.language.includes(c[key])) {
             clientLanguage = c[key];
             clientCountryL = key;            
         }
     }
+
+    console.log(clientCountryL);
 
     if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         clientSO = 'Mobile'; // Android device
