@@ -291,26 +291,16 @@ function init () {
         }
     }
 
-    switch (navigator.userAgentData.platform) {
-        case "Windows":
-            clientSO = 'Windows';
-            break;
-        case "Android":
-            clientSO = 'Mobile';
-            break;
-        case "Macintosh":
-            clientSO = 'Apple';
-            break;
-        case "iPhone":
-            clientSO = 'Apple';
-            break;
-        case "iPad":
-            clientSO = 'Apple';
-            break;
-        default:
-            clientSO = 'Other';
-            break;
+    if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        clientSO = 'Mobile'; // Android device
+    }else if (/iPhone|iPad|iPod|Mac OS/i.test(navigator.userAgent)) {
+        clientSO = 'Apple';
+    } else if (/Win64|Win32/i.test(navigator.userAgent)) {
+        clientSO = 'Windows'
+    }else {
+        clientSO = 'Other';
     }
+
     clientMobile = navigator.userAgentData.mobile;
     clientPrevWeb = document.referrer;
     clientCookiesActive = navigator.cookieEnabled;
