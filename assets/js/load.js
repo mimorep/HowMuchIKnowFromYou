@@ -280,8 +280,6 @@ function init () {
         }
     }
 
-    console.log(clientCountryL);
-
     if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         clientSO = 'Mobile'; // Android device
         clientSOImage = 'Mobile';
@@ -393,6 +391,7 @@ function getIPInfo () {
             internetText = internetItem.innerText,
             locationText = locationItem.innerText;
 
+        console.log(clientLanguage);
         // Set the flag icon
         if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
        
