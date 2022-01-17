@@ -29,6 +29,7 @@ var userAgent = undefined,
     clientLanguage = undefined,
     clientCountryL = undefined,
     clientSO = undefined,
+    clientSOImage = undefined,
     clientCookiesActive = false,
     clientPrevWeb = undefined,
     clientMobile = false,
@@ -230,7 +231,7 @@ var countrys = [
                 {'Zulu': 'zu'},
 ];
 
-var osDictionary = [
+var windowsOSs = [
     {'Windows 3.11' : 'Win16'},
     {'Windows 95' : '(Windows 95)|(Win95)|(Windows_95)'},
     {'Windows 98' : '(Windows 98)|(Win98)'},
@@ -240,18 +241,8 @@ var osDictionary = [
     {'Windows Vista' : '(Windows NT 6.0)'},
     {'Windows 7' : '(Windows NT 6.1)'},
     {'Windows 8' : '(Windows NT 6.2)|(WOW64)'},
-    {'Windows 10' : '(Windows 10.0)|(Windows NT 10.0)'},
-    {'Windows NT 4.0' : '(Windows NT 4.0)|(WinNT4.0)|(WinNT)|(Windows NT)'},
-    {'Windows ME' : 'Windows ME'},
-    {'Open BSD' : 'OpenBSD'},
-    {'Sun OS' : 'SunOS'},
-    {'Linux' : '(Linux)|(X11)'},
-    {'Mac OS' : '(Mac_PowerPC)|(Macintosh)'},
-    {'QNX' : 'QNX'},
-    {'BeOS' : 'BeOS'},
-    {'OS/2' : 'OS/2'},
-    {'Search Bot':'(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp)|(MSNBot)|(Ask Jeeves/Teoma)|(ia_archiver)'}
-
+    {'Windows 10 or 11' : '(Windows 10.0)|(Windows NT 10.0)'},
+    {'Windows ME' : 'Windows ME'}
 ];
 
 var osImages = {
@@ -270,8 +261,6 @@ function init () {
 
     // Load ascii art
     console.log(asciiArt);
-
-    // TODO: Tenemos que controlar si estamos en MAC o en Windows por que en MAC no existe userAgentData
 
     var locationURL = new URL(window.location.href),
         redirect = locationURL.searchParams.get('redirect'),
@@ -293,15 +282,30 @@ function init () {
 
     if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         clientSO = 'Mobile'; // Android device
+        clientSOImage = 'Mobile';
+        clientMobile = true;
     }else if (/iPhone|iPad|iPod|Mac OS/i.test(navigator.userAgent)) {
         clientSO = 'Apple';
+        clientSOImage = 'Apple';
+        if (/iPhone/i.test(navigator.userAgent))        
+            clientMobile = true; // Check for just mobile
     } else if (/Win64|Win32/i.test(navigator.userAgent)) {
         clientSO = 'Windows'
+        // Get the version of Windows
+        for (let w of windowsOSs) {
+            for (let key in w) {
+                var regex = new RegExp(`${w[key]}`, 'i');
+
+                if (regex.test(navigator.userAgent))
+                    clientSO = key;               
+            }
+        }
+        clientSOImage = 'Windows';
     }else {
         clientSO = 'Other';
+        clientSOImage = 'Other';
     }
 
-    clientMobile = navigator.userAgentData.mobile;
     clientPrevWeb = document.referrer;
     clientCookiesActive = navigator.cookieEnabled;
 
@@ -315,7 +319,7 @@ function init () {
         // Change de OS logo
         if (document.getElementById('OSImage').classList.remove('bi-laptop'));
         
-        if (document.getElementById('OSImage').classList.add(`${osImages[clientSO]}`));
+        if (document.getElementById('OSImage').classList.add(`${osImages[clientSOImage]}`));
 
         var languageItem = document.getElementById('clienteLanguage'),
             languageText = languageItem.innerText,
