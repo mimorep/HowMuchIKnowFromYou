@@ -29,6 +29,7 @@ var userAgent = undefined,
     clientLanguage = undefined,
     clientCountryL = undefined,
     clientSO = undefined,
+    clientSOImage = undefined,
     clientCookiesActive = false,
     clientPrevWeb = undefined,
     clientMobile = false,
@@ -230,6 +231,20 @@ var countrys = [
                 {'Zulu': 'zu'},
 ];
 
+var windowsOSs = [
+    {'Windows 3.11' : 'Win16'},
+    {'Windows 95' : '(Windows 95)|(Win95)|(Windows_95)'},
+    {'Windows 98' : '(Windows 98)|(Win98)'},
+    {'Windows 2000' : '(Windows NT 5.0)|(Windows 2000)'},
+    {'Windows XP' : '(Windows NT 5.1)|(Windows XP)'},
+    {'Windows Server 2003' : '(Windows NT 5.2)'},
+    {'Windows Vista' : '(Windows NT 6.0)'},
+    {'Windows 7' : '(Windows NT 6.1)'},
+    {'Windows 8' : '(Windows NT 6.2)|(WOW64)'},
+    {'Windows 10 or 11' : '(Windows 10.0)|(Windows NT 10.0)'},
+    {'Windows ME' : 'Windows ME'}
+];
+
 var osImages = {
     Windows: "bi-windows",
     Apple: "bi-apple",
@@ -259,33 +274,38 @@ function init () {
         for (let k in c) {
             key = k;
         }
-        if (c[key] == navigator.languages[1]) {
+        if (navigator.language.includes(c[key])) {
             clientLanguage = c[key];
             clientCountryL = key;            
         }
     }
 
-    switch (navigator.userAgentData.platform) {
-        case "Windows":
-            clientSO = 'Windows';
-            break;
-        case "Android":
-            clientSO = 'Mobile';
-            break;
-        case "Macintosh":
-            clientSO = 'Apple';
-            break;
-        case "iPhone":
-            clientSO = 'Apple';
-            break;
-        case "iPad":
-            clientSO = 'Apple';
-            break;
-        default:
-            clientSO = 'Other';
-            break;
+    if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        clientSO = 'Mobile'; // Android device
+        clientSOImage = 'Mobile';
+        clientMobile = true;
+    }else if (/iPhone|iPad|iPod|Mac OS/i.test(navigator.userAgent)) {
+        clientSO = 'Apple';
+        clientSOImage = 'Apple';
+        if (/iPhone/i.test(navigator.userAgent))        
+            clientMobile = true; // Check for just mobile
+    } else if (/Win64|Win32/i.test(navigator.userAgent)) {
+        clientSO = 'Windows'
+        // Get the version of Windows
+        for (let w of windowsOSs) {
+            for (let key in w) {
+                var regex = new RegExp(`${w[key]}`, 'i');
+
+                if (regex.test(navigator.userAgent))
+                    clientSO = key;               
+            }
+        }
+        clientSOImage = 'Windows';
+    }else {
+        clientSO = 'Other';
+        clientSOImage = 'Other';
     }
-    clientMobile = navigator.userAgentData.mobile;
+
     clientPrevWeb = document.referrer;
     clientCookiesActive = navigator.cookieEnabled;
 
@@ -294,12 +314,11 @@ function init () {
 
         // Change de country flag
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
-        //if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
 
         // Change de OS logo
         if (document.getElementById('OSImage').classList.remove('bi-laptop'));
         
-        if (document.getElementById('OSImage').classList.add(`${osImages[clientSO]}`));
+        if (document.getElementById('OSImage').classList.add(`${osImages[clientSOImage]}`));
 
         var languageItem = document.getElementById('clienteLanguage'),
             languageText = languageItem.innerText,
@@ -310,11 +329,15 @@ function init () {
 
         osText = osText.replace('_OS_', clientSO);
         if (clientCountryL !== undefined)
-            languageText = languageText.replace('_language_', clientCountryL);
+            languageText = languageText.replace('_language_', clientCountryL + ', or at least is your preferred language');
         else
             languageText = languageText.replace('_language_', 'a language that is not in my database');
         prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
-        if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
+        // https://mimorep.github.io/HowMuchIKnowFromYou/?redirect=https://www.linkedin.com/in/miguel-moreno-pastor
+        if (clientPrevWeb.includes('?redirect=')) {
+            // The client had used our web to make an atack
+            prevWebText = 'You come from my website and have tried the history poisoning attack';
+        }else if (clientPrevWeb.includes('linkedin') && !clientPrevWeb.includes('redirect')) {
             var linkedLink = document.createElement("a");
             
             linkedLink.href = "https://www.linkedin.com/in/miguel-moreno-pastor";
@@ -368,14 +391,10 @@ function getIPInfo () {
             locationText = locationItem.innerText;
 
         // Set the flag icon
-        if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
        
-        var countryFlag = document.getElementById('countryFlag'),
-            imgDiv = document.getElementById('imgDiv'),
+        var imgDiv = document.getElementById('imgDiv'),
             img = document.createElement('img'),
             language = document.getElementById('clienteLanguage');
-
-        countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
         
         // Replace the flag with the icon of the result             
         img.src = result.country_flag;
@@ -395,9 +414,7 @@ function getIPInfo () {
         }
 
         // Now set the language
-        language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);
-
-        
+        language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);        
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
         locationText = locationText.replace('_Country_', result.state_prov);
@@ -460,9 +477,7 @@ function makeCustomAttack (event) {
         link = document.getElementById('websiteAttackLink'),
         iconLink = document.getElementById('websiteAttackIcon');
 
-    let random = Math.floor(Math.random() * 7777);
-
-    
+    let random = Math.floor(Math.random() * 7777);    
 
     // Redireccionamos a nuestra web para no levantar sospechas
     setTimeout(() => {
