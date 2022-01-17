@@ -314,7 +314,6 @@ function init () {
 
         // Change de country flag
         if (document.getElementById('countryFlag').classList.remove('flag-icon-gr'));
-        //if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
 
         // Change de OS logo
         if (document.getElementById('OSImage').classList.remove('bi-laptop'));
@@ -330,7 +329,7 @@ function init () {
 
         osText = osText.replace('_OS_', clientSO);
         if (clientCountryL !== undefined)
-            languageText = languageText.replace('_language_', clientCountryL);
+            languageText = languageText.replace('_language_', clientCountryL + ', or at least is your preferred language');
         else
             languageText = languageText.replace('_language_', 'a language that is not in my database');
         prevWebText = prevWebText.replace('_Website_', clientPrevWeb);
@@ -391,16 +390,11 @@ function getIPInfo () {
             internetText = internetItem.innerText,
             locationText = locationItem.innerText;
 
-        console.log(clientLanguage);
         // Set the flag icon
-        if (document.getElementById('countryFlag').classList.add(`flag-icon-${clientLanguage}`));
        
-        var countryFlag = document.getElementById('countryFlag'),
-            imgDiv = document.getElementById('imgDiv'),
+        var imgDiv = document.getElementById('imgDiv'),
             img = document.createElement('img'),
             language = document.getElementById('clienteLanguage');
-
-        countryFlag.classList.remove(`flag-icon-${clientLanguage}`);
         
         // Replace the flag with the icon of the result             
         img.src = result.country_flag;
@@ -420,9 +414,7 @@ function getIPInfo () {
         }
 
         // Now set the language
-        language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);
-
-        
+        language.innerText = language.innerText.replace('a language that is not in my database', clientCountryL);        
 
         internetText = internetText.replace('_InternetProvider_', result.isp);
         locationText = locationText.replace('_Country_', result.state_prov);
