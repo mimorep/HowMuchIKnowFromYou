@@ -500,7 +500,7 @@ function makeCustomAttack (event) {
 
         history.pushState({id: random}, '', `?redirect=https://${link.value}`);
         window.location = `${lastLocation.protocol}//mimorep.github.io/HowMuchIKnowFromYou/`;  
-    }, 100);
+    }, 150);
 }
 
 /**
